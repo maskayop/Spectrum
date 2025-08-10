@@ -10,10 +10,11 @@ namespace Spectrum
     {
         public string name;
 
-        [TextArea(3, 10)]
+        [TextArea(1, 5)]
         public string rawData;
 
         [Header("Processed data")]
+        public double spectralAmplitudeDivider = 1;
         public List<double> spectralData = new List<double>();
 
         public void Init()
@@ -33,14 +34,10 @@ namespace Spectrum
             foreach (string line in lines)
             {
                 // Убираем пробелы и проверяем, можно ли преобразовать в float
-                if (double.TryParse(line.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out double number))
-                {
-                    spectralData.Add(number);
-                }
+                if (float.TryParse(line.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out float number))
+                    spectralData.Add(number / spectralAmplitudeDivider);
                 else
-                {
                     Debug.LogWarning($"Не удалось преобразовать строку '{line}' в число.");
-                }
             }
         }
     }
@@ -48,15 +45,26 @@ namespace Spectrum
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class DiagramGenerator : MonoBehaviour
     {
+        public enum DiagramType { spectral, sinX, sinY }
+        public DiagramType type;
+
         public int width = 10;
         public int height = 10;
-
-        [Header("Sin")]
-        public float amplitude = 1;
-        public float frequency = 1;
         public float speed = 1;
 
+        [Header("Spectral")]
+        [Range(0,2)]
+        public int datasetIndex = 0;
+        [Range(0.5f,2.0f)]
+        public float amplitudeRatio = 1;
+
+        [Header("Sin")]
+        public float sinAmplitude = 1;
+        public float frequency = 1;
+
+        public enum ColorsType { horizontal, vertical }
         [Header("Colors")]
+        public ColorsType colorsType;
         public List<Color> colors = new List<Color>();
 
         [Header("Data")]
@@ -71,10 +79,10 @@ namespace Spectrum
 
         void Start()
         {
-            CreatePlane();
-
             for (int i = 0; i < dataset.Count; i++)
                 dataset[i].Init();
+            
+            CreatePlane();
         }
 
         void Update()
@@ -91,11 +99,20 @@ namespace Spectrum
             mesh = new Mesh();
             GetComponent<MeshFilter>().mesh = mesh;
 
+            if (type == DiagramType.spectral)
+            {
+                if (dataset.Count == 0)
+                    return;
+
+                width = dataset[0].spectralData.Count / 2;
+                height = width;
+            }
+
             vertices = new Vector3[(width + 1) * (height + 1)];
             uv = new Vector2[vertices.Length];
             int[] triangles = new int[width * height * 6];
 
-            // Создаем вершины
+            // Создаём вершины
             for (int z = 0, i = 0; z <= height; z++)
             {
                 for (int x = 0; x <= width; x++, i++)
@@ -105,7 +122,7 @@ namespace Spectrum
                 }
             }
 
-            // Создаем треугольники
+            // Создаём треугольники
             for (int ti = 0, vi = 0, y = 0; y < height; y++, vi++)
             {
                 for (int x = 0; x < width; x++, ti += 6, vi++)
@@ -128,11 +145,60 @@ namespace Spectrum
 
         void UpdateGeneratedMesh()
         {
-            for (int z = 0, i = 0; z <= height; z++)
+            if (dataset.Count == 0)
+                return;
+            else if (datasetIndex <= 0)
+                datasetIndex = 0;
+            else if (datasetIndex >= dataset.Count)
+                datasetIndex = dataset.Count - 1;
+
+            if (type == DiagramType.spectral)
             {
-                for (int x = 0; x <= width; x++, i++)
+                int amountInGroup = Mathf.CeilToInt((float)height / (dataset.Count - 1));
+                float verticalOffset = 0;
+
+                for (int z = 0, i = 0; z <= height; z++)
                 {
-                    vertices[i] = new Vector3(x, Mathf.Sin(x * frequency + timeValue * speed) * amplitude, z);
+                    for (int x = 0; x <= width; x++, i++)
+                    {
+                        if (amountInGroup != 0)
+                        {
+                            int d = 0;                            
+                            d = Mathf.FloorToInt(z / amountInGroup);
+
+                            if (d + 1 < dataset.Count)
+                                verticalOffset = Mathf.Lerp(
+                                    (float)dataset[d].spectralData[x * 2],
+                                    (float)dataset[d + 1].spectralData[x * 2],
+                                    (float)z / amountInGroup % 1);
+                            else
+                                verticalOffset = (float)dataset[dataset.Count - 1].spectralData[x * 2];
+                        }
+                        else
+                            verticalOffset = (float)dataset[datasetIndex].spectralData[x * 2];
+
+                        vertices[i] = new Vector3(x, verticalOffset * amplitudeRatio, z);
+                    }
+                }
+            }
+            else if (type == DiagramType.sinX)
+            {
+                for (int z = 0, i = 0; z <= height; z++)
+                {
+                    for (int x = 0; x <= width; x++, i++)
+                    {
+                        vertices[i] = new Vector3(x, Mathf.Sin(x * frequency + timeValue * speed) * sinAmplitude, z);
+                    }
+                }
+            }
+            else if (type == DiagramType.sinY)
+            {
+                for (int z = 0, i = 0; z <= height; z++)
+                {
+                    for (int x = 0; x <= width; x++, i++)
+                    {
+                        vertices[i] = new Vector3(x, Mathf.Sin(z * frequency + timeValue * speed) * sinAmplitude, z);
+                    }
                 }
             }
 
@@ -143,18 +209,33 @@ namespace Spectrum
         void CalculateVertexColors()
         {
             Color[] tempColors = new Color[mesh.vertices.Length];
-            int amountInColorCroup = Mathf.CeilToInt((float)width / colors.Count);
+            int amountInColorGroup = 0;
 
+            if (colorsType == ColorsType.horizontal)
+                amountInColorGroup = Mathf.CeilToInt((float)width / (colors.Count - 1));
+            else if (colorsType == ColorsType.vertical)
+                amountInColorGroup = Mathf.CeilToInt((float)height / (colors.Count - 1));
+            
             for (int z = 0, i = 0; z <= height; z++)
             {
                 for (int x = 0; x <= width; x++, i++)
                 {
-                    if (amountInColorCroup != 0)
+                    if (amountInColorGroup != 0)
                     {
-                        int c = Mathf.FloorToInt(x / amountInColorCroup);
+                        int c = 0;
+
+                        if (colorsType == ColorsType.horizontal)
+                            c = Mathf.FloorToInt(x / amountInColorGroup);
+                        else if (colorsType == ColorsType.vertical)
+                            c = Mathf.FloorToInt(z / amountInColorGroup);
 
                         if (c + 1 < colors.Count)
-                            tempColors[i] = Color.Lerp(colors[c], colors[c + 1], ((float)x / amountInColorCroup) % 1);
+                        {
+                            if (colorsType == ColorsType.horizontal)
+                                tempColors[i] = Color.Lerp(colors[c], colors[c + 1], (float)x / amountInColorGroup % 1);
+                            else if (colorsType == ColorsType.vertical)
+                                tempColors[i] = Color.Lerp(colors[c], colors[c + 1], (float)z / amountInColorGroup % 1);
+                        }
                         else
                             tempColors[i] = colors[colors.Count - 1];
                     }
