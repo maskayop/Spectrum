@@ -11,6 +11,7 @@ namespace Spectrum
 
         [Header("UI")]
         [SerializeField] Slider mainSlider;
+        [SerializeField] Slider circadianSlider;
         [SerializeField] Image TM30Image;
 
         int currentIndex = 0;
@@ -34,14 +35,16 @@ namespace Spectrum
 
         public void Init()
         {
-            mainSlider.minValue = 0;
-            mainSlider.maxValue = dataset.dataset.Count - 1;
+            mainSlider.minValue = circadianSlider.minValue = 0;
+            mainSlider.maxValue = circadianSlider.maxValue = dataset.dataset.Count - 1;
             mainSlider.value = 0;
+            circadianSlider.value = 0;
         }
 
-        public void ChangeSliderValue()
+        public void ChangeMainSliderValue()
         {
             currentIndex = Mathf.FloorToInt(mainSlider.value);
+            circadianSlider.value = currentIndex;
 
             TM30Image.sprite = dataset.dataset[currentIndex].TM30Image;
         }
