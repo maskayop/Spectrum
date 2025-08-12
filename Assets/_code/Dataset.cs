@@ -16,6 +16,7 @@ namespace Spectrum
     public class Data
     {
         public string name;
+        public Sprite TM30Image;
         public RawStringData rawStringData;
 
         [Header("Processed data")]

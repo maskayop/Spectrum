@@ -31,7 +31,6 @@ namespace Spectrum
 
         [Header("Data")]
         public Dataset dataset;
-        //public List<Data> dataset = new List<Data>();
 
         Vector3[] vertices;
         Vector2[] uv;
