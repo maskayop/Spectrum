@@ -1,47 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 
 namespace Spectrum
 {
-    [Serializable]
-    public class Data
-    {
-        public string name;
-
-        [TextArea(1, 5)]
-        public string rawData;
-
-        [Header("Processed data")]
-        public double spectralAmplitudeDivider = 1;
-        public List<double> spectralData = new List<double>();
-
-        public void Init()
-        {
-            ParseNumbers();
-        }
-
-        void ParseNumbers()
-        {
-            // Разбиваем строку на массив строк по переносу строки
-            string[] lines = rawData.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-
-            // Очищаем список перед добавлением
-            spectralData.Clear();
-
-            // Парсим каждую строку в float и добавляем в список
-            foreach (string line in lines)
-            {
-                // Убираем пробелы и проверяем, можно ли преобразовать в float
-                if (float.TryParse(line.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out float number))
-                    spectralData.Add(number / spectralAmplitudeDivider);
-                else
-                    Debug.LogWarning($"Не удалось преобразовать строку '{line}' в число.");
-            }
-        }
-    }
-
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
     public class DiagramGenerator : MonoBehaviour
     {
@@ -68,7 +30,8 @@ namespace Spectrum
         public List<Color> colors = new List<Color>();
 
         [Header("Data")]
-        public List<Data> dataset = new List<Data>();
+        public Dataset dataset;
+        //public List<Data> dataset = new List<Data>();
 
         Vector3[] vertices;
         Vector2[] uv;
@@ -79,8 +42,11 @@ namespace Spectrum
 
         void Start()
         {
-            for (int i = 0; i < dataset.Count; i++)
-                dataset[i].Init();
+            for (int i = 0; i < dataset.dataset.Count; i++)
+            {
+                dataset.dataset[i].spectralAmplitudeDivider = dataset.spectralAmplitudeDivider;
+                dataset.dataset[i].Init();
+            }
             
             CreatePlane();
         }
@@ -101,10 +67,10 @@ namespace Spectrum
 
             if (type == DiagramType.spectral)
             {
-                if (dataset.Count == 0)
+                if (dataset.dataset.Count == 0)
                     return;
 
-                width = dataset[0].spectralData.Count / 2;
+                width = dataset.dataset[0].spectralData.Count / 2;
                 height = width;
             }
 
@@ -145,16 +111,16 @@ namespace Spectrum
 
         void UpdateGeneratedMesh()
         {
-            if (dataset.Count == 0)
+            if (dataset.dataset.Count == 0)
                 return;
             else if (datasetIndex <= 0)
                 datasetIndex = 0;
-            else if (datasetIndex >= dataset.Count)
-                datasetIndex = dataset.Count - 1;
+            else if (datasetIndex >= dataset.dataset.Count)
+                datasetIndex = dataset.dataset.Count - 1;
 
             if (type == DiagramType.spectral)
             {
-                int amountInGroup = Mathf.CeilToInt((float)height / (dataset.Count - 1));
+                int amountInGroup = Mathf.CeilToInt((float)height / (dataset.dataset.Count - 1));
                 float verticalOffset = 0;
 
                 for (int z = 0, i = 0; z <= height; z++)
@@ -166,16 +132,16 @@ namespace Spectrum
                             int d = 0;                            
                             d = Mathf.FloorToInt(z / amountInGroup);
 
-                            if (d + 1 < dataset.Count)
+                            if (d + 1 < dataset.dataset.Count)
                                 verticalOffset = Mathf.Lerp(
-                                    (float)dataset[d].spectralData[x * 2],
-                                    (float)dataset[d + 1].spectralData[x * 2],
+                                    (float)dataset.dataset[d].spectralData[x * 2],
+                                    (float)dataset.dataset[d + 1].spectralData[x * 2],
                                     (float)z / amountInGroup % 1);
                             else
-                                verticalOffset = (float)dataset[dataset.Count - 1].spectralData[x * 2];
+                                verticalOffset = (float)dataset.dataset[dataset.dataset.Count - 1].spectralData[x * 2];
                         }
                         else
-                            verticalOffset = (float)dataset[datasetIndex].spectralData[x * 2];
+                            verticalOffset = (float)dataset.dataset[datasetIndex].spectralData[x * 2];
 
                         vertices[i] = new Vector3(x, verticalOffset * amplitudeRatio, z);
                     }
