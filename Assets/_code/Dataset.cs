@@ -19,6 +19,8 @@ namespace Spectrum
         public Sprite TM30Image;
         public RawStringData rawStringData;
         public int intensity;
+        public int temperature;
+        public Color emissionColor;
 
         [Header("Processed data")]
         [HideInInspector]

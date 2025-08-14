@@ -10,7 +10,12 @@ namespace Spectrum
 
         [SerializeField] Dataset dataset;
 
+        [SerializeField] MeshRenderer meshRenderer;
+        [SerializeField] int materialIndex;
+
         [Header("UI")]
+        [SerializeField] Image background;
+        [SerializeField] float backgroundAlpha;
         [SerializeField] Slider mainSlider;
         [SerializeField] Slider intensitySlider;
         [SerializeField] TextMeshProUGUI intensityValueText;
@@ -80,6 +85,15 @@ namespace Spectrum
             circadianValueText.text = circadianSlider.value.ToString();
 
             TM30Image.sprite = dataset.dataset[currentIndex].TM30Image;
+
+            background.color = new Vector4(dataset.dataset[currentIndex].emissionColor.r,
+                dataset.dataset[currentIndex].emissionColor.g,
+                dataset.dataset[currentIndex].emissionColor.b,
+                backgroundAlpha);
+
+            Material[] materials = meshRenderer.materials;
+            materials[materialIndex].SetColor("_EmissionColor", dataset.dataset[currentIndex].emissionColor);
+            meshRenderer.materials = materials;
         }
 
         public void ExitGame()
