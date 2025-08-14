@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Spectrum
 {
@@ -11,10 +12,13 @@ namespace Spectrum
 
         [Header("UI")]
         [SerializeField] Slider mainSlider;
+        [SerializeField] Slider intensitySlider;
+        [SerializeField] TextMeshProUGUI intensityValueText;
         [SerializeField] Slider circadianSlider;
+        [SerializeField] TextMeshProUGUI circadianValueText;
         [SerializeField] Image TM30Image;
 
-        int currentIndex = 0;
+        public int currentIndex = 0;
 
         void Awake()
         {
@@ -33,20 +37,54 @@ namespace Spectrum
             Init();
         }
 
-        public void Init()
+        void Update()
         {
-            mainSlider.minValue = circadianSlider.minValue = 0;
-            mainSlider.maxValue = circadianSlider.maxValue = dataset.dataset.Count - 1;
-            mainSlider.value = 0;
-            circadianSlider.value = 0;
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                currentIndex--;
+
+                if (currentIndex <= 0)
+                    currentIndex = 0;
+
+                ChangeMainSliderValue(false);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                currentIndex++;
+
+                if (currentIndex >= dataset.dataset.Count)
+                    currentIndex = dataset.dataset.Count - 1;
+
+                ChangeMainSliderValue(false);
+            }
         }
 
-        public void ChangeMainSliderValue()
+        public void Init()
         {
-            currentIndex = Mathf.FloorToInt(mainSlider.value);
+            mainSlider.minValue = circadianSlider.minValue = intensitySlider.minValue = 0;
+            mainSlider.maxValue = circadianSlider.maxValue = dataset.dataset.Count - 1;
+            intensitySlider.maxValue = 100;
+
+            ChangeMainSliderValue(false);
+        }
+
+        public void ChangeMainSliderValue(bool isCanvasInput)
+        {
+            if (isCanvasInput)
+                currentIndex = Mathf.FloorToInt(mainSlider.value);            
+
+            intensitySlider.value = dataset.dataset[currentIndex].intensity;
+            intensityValueText.text = intensitySlider.value.ToString();
+
             circadianSlider.value = currentIndex;
+            circadianValueText.text = circadianSlider.value.ToString();
 
             TM30Image.sprite = dataset.dataset[currentIndex].TM30Image;
+        }
+
+        public void ExitGame()
+        {
+            Application.Quit();
         }
     }
 }

@@ -131,10 +131,13 @@ namespace Spectrum
                             int d = 0;                            
                             d = Mathf.FloorToInt(z / amountInGroup);
 
-                            if (d + 1 < dataset.dataset.Count)
+                            int d1 = d + UICanvasMain.Instance.currentIndex;
+                            int d2 = d + 1 + UICanvasMain.Instance.currentIndex;
+
+                            if (d + 1 + UICanvasMain.Instance.currentIndex < dataset.dataset.Count)
                                 verticalOffset = Mathf.Lerp(
-                                    (float)dataset.dataset[d].spectralData[x * 2],
-                                    (float)dataset.dataset[d + 1].spectralData[x * 2],
+                                    (float)dataset.dataset[d1].spectralData[x * 2],
+                                    (float)dataset.dataset[d2].spectralData[x * 2],
                                     (float)z / amountInGroup % 1);
                             else
                                 verticalOffset = (float)dataset.dataset[dataset.dataset.Count - 1].spectralData[x * 2];

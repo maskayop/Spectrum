@@ -18,6 +18,7 @@ namespace Spectrum
         public string name;
         public Sprite TM30Image;
         public RawStringData rawStringData;
+        public int intensity;
 
         [Header("Processed data")]
         [HideInInspector]
