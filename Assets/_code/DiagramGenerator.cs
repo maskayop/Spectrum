@@ -41,10 +41,10 @@ namespace Spectrum
 
         void Start()
         {
-            for (int i = 0; i < dataset.dataset.Count; i++)
+            for (int i = 0; i < dataset.dataAssets.Count; i++)
             {
-                dataset.dataset[i].spectralAmplitudeDivider = dataset.spectralAmplitudeDivider;
-                dataset.dataset[i].Init();
+                dataset.dataAssets[i].data.spectralAmplitudeDivider = dataset.spectralAmplitudeDivider;
+                dataset.dataAssets[i].data.Init();
             }
             
             CreatePlane();
@@ -66,10 +66,10 @@ namespace Spectrum
 
             if (type == DiagramType.spectral)
             {
-                if (dataset.dataset.Count == 0)
+                if (dataset.dataAssets.Count == 0)
                     return;
 
-                width = dataset.dataset[0].spectralData.Count / 2;
+                //width = dataset.dataAssets[0].data.spectralData.Count / 2;
                 height = width;
             }
 
@@ -110,16 +110,16 @@ namespace Spectrum
 
         void UpdateGeneratedMesh()
         {
-            if (dataset.dataset.Count == 0)
+            if (dataset.dataAssets.Count == 0)
                 return;
             else if (datasetIndex <= 0)
                 datasetIndex = 0;
-            else if (datasetIndex >= dataset.dataset.Count)
-                datasetIndex = dataset.dataset.Count - 1;
+            else if (datasetIndex >= dataset.dataAssets.Count)
+                datasetIndex = dataset.dataAssets.Count - 1;
 
             if (type == DiagramType.spectral)
             {
-                int amountInGroup = Mathf.CeilToInt((float)height / (dataset.dataset.Count - 1));
+                int amountInGroup = Mathf.CeilToInt((float)height / (dataset.dataAssets.Count - 1));
                 float verticalOffset = 0;
 
                 for (int z = 0, i = 0; z <= height; z++)
@@ -134,16 +134,16 @@ namespace Spectrum
                             int d1 = d + UICanvasMain.Instance.currentIndex;
                             int d2 = d + 1 + UICanvasMain.Instance.currentIndex;
 
-                            if (d + 1 + UICanvasMain.Instance.currentIndex < dataset.dataset.Count)
+                            if (d + 1 + UICanvasMain.Instance.currentIndex < dataset.dataAssets.Count)
                                 verticalOffset = Mathf.Lerp(
-                                    (float)dataset.dataset[d1].spectralData[x * 2],
-                                    (float)dataset.dataset[d2].spectralData[x * 2],
+                                    (float)dataset.dataAssets[d1].data.spectralData[x * 2],
+                                    (float)dataset.dataAssets[d2].data.spectralData[x * 2],
                                     (float)z / amountInGroup % 1);
                             else
-                                verticalOffset = (float)dataset.dataset[dataset.dataset.Count - 1].spectralData[x * 2];
+                                verticalOffset = (float)dataset.dataAssets[dataset.dataAssets.Count - 1].data.spectralData[x * 2];
                         }
                         else
-                            verticalOffset = (float)dataset.dataset[datasetIndex].spectralData[x * 2];
+                            verticalOffset = (float)dataset.dataAssets[datasetIndex].data.spectralData[x * 2];
 
                         vertices[i] = new Vector3(x, verticalOffset * amplitudeRatio, z);
                     }

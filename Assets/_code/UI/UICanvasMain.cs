@@ -64,8 +64,8 @@ namespace Spectrum
             {
                 currentIndex++;
 
-                if (currentIndex >= dataset.dataset.Count)
-                    currentIndex = dataset.dataset.Count - 1;
+                if (currentIndex >= dataset.dataAssets.Count)
+                    currentIndex = dataset.dataAssets.Count - 1;
 
                 ChangeMainSliderValue(false);
             }
@@ -74,7 +74,7 @@ namespace Spectrum
         public void Init()
         {
             mainSlider.minValue = circadianSlider.minValue = intensitySlider.minValue = 0;
-            mainSlider.maxValue = circadianSlider.maxValue = dataset.dataset.Count - 1;
+            mainSlider.maxValue = circadianSlider.maxValue = dataset.dataAssets.Count - 1;
             intensitySlider.maxValue = 100;
 
             ChangeMainSliderValue(false);
@@ -85,24 +85,29 @@ namespace Spectrum
             if (isCanvasInput)
                 currentIndex = Mathf.FloorToInt(mainSlider.value);            
 
-            intensitySlider.value = dataset.dataset[currentIndex].intensity;
+            intensitySlider.value = dataset.dataAssets[currentIndex].data.intensity;
             intensityValueText.text = intensitySlider.value.ToString();
 
             circadianSlider.value = currentIndex;
             circadianValueText.text = circadianSlider.value.ToString();
 
-            TM30Image.sprite = dataset.dataset[currentIndex].TM30Image;
+            TM30Image.sprite = dataset.dataAssets[currentIndex].data.TM30Image;
 
-            background.color = new Vector4(dataset.dataset[currentIndex].emissionColor.r,
-                dataset.dataset[currentIndex].emissionColor.g,
-                dataset.dataset[currentIndex].emissionColor.b,
+            background.color = new Vector4(dataset.dataAssets[currentIndex].data.emissionColor.r,
+                dataset.dataAssets[currentIndex].data.emissionColor.g,
+                dataset.dataAssets[currentIndex].data.emissionColor.b,
                 backgroundAlpha);
 
             Material[] materials = meshRenderer.materials;
-            materials[materialIndex].SetColor("_EmissionColor", dataset.dataset[currentIndex].emissionColor *
-                dataset.dataset[currentIndex].intensity / 100);
+            materials[materialIndex].SetColor("_EmissionColor", dataset.dataAssets[currentIndex].data.emissionColor *
+                dataset.dataAssets[currentIndex].data.intensity / 100);
             meshRenderer.materials = materials;
             meshRendererAdditional.materials = materials;
+
+            rfValueText.text = dataset.dataAssets[currentIndex].data.rf.ToString();
+            rgValueText.text = dataset.dataAssets[currentIndex].data.rg.ToString();
+            raValueText.text = dataset.dataAssets[currentIndex].data.ra.ToString();
+            cctValueText.text = dataset.dataAssets[currentIndex].data.cct.ToString();
         }
 
         public void ExitGame()

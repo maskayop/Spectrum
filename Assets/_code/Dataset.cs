@@ -16,7 +16,15 @@ namespace Spectrum
     public class Data
     {
         public string name;
+
+        [Header("TM-30")]
         public Sprite TM30Image;
+        public float rf;
+        public float rg;
+        public float ra;
+        public float cct;
+
+        [Space(20)]
         public RawStringData rawStringData;
         public int intensity;
         public int temperature;
@@ -55,6 +63,7 @@ namespace Spectrum
     public class Dataset : MonoBehaviour
     {
         public double spectralAmplitudeDivider = 1;
+        public List<Data_Asset> dataAssets = new List<Data_Asset>();
         public List<Data> dataset = new List<Data>();
     }
 }

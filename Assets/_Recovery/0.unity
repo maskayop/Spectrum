@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  width: 200
-  height: 200
+  width: 100
+  height: 100
   speed: 2
   datasetIndex: 0
   amplitudeRatio: 1
@@ -247,7 +247,7 @@ Transform:
   m_GameObject: {fileID: 9884064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -269,55 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spectralAmplitudeDivider: 500000000
-  dataAssets:
-  - {fileID: 11400000, guid: e3f26caa88d6f46478f1652567238eb1, type: 2}
-  - {fileID: 11400000, guid: e8c69f25add43f54dbace3f27e2df4a6, type: 2}
-  - {fileID: 11400000, guid: 8d41b298bfea0994bbe5123c840d92de, type: 2}
-  - {fileID: 11400000, guid: ade7cc42050e5cb4ba9281a22e91225d, type: 2}
-  - {fileID: 11400000, guid: 7df61d354feb19f418cb3488cab6003f, type: 2}
-  - {fileID: 11400000, guid: 490a50793fc510842a30dd8e9755413f, type: 2}
-  - {fileID: 11400000, guid: 1eea2938848ac0049b1108307d402a75, type: 2}
-  - {fileID: 11400000, guid: c416b23007d0bb641b8ad40fbf8404bc, type: 2}
-  - {fileID: 11400000, guid: 9502ab1591ba46645ae9d34150dbf965, type: 2}
-  - {fileID: 11400000, guid: c34919343cb72b94cac6cf1e258a2a3a, type: 2}
-  - {fileID: 11400000, guid: e31ad51cd7903894eb1c1ccecb5f9545, type: 2}
-  - {fileID: 11400000, guid: e8004e7b140b8d44a9c29af7a07b36ca, type: 2}
-  - {fileID: 11400000, guid: 7149375612bb9764e956caa653236d7e, type: 2}
-  - {fileID: 11400000, guid: 2aa93c51ab1e6074c98f8fa9ced25dfb, type: 2}
-  - {fileID: 11400000, guid: 2fa3673c61181924fb5968f2973d0279, type: 2}
-  - {fileID: 11400000, guid: dbc827f1e84cd0c46844de1da0c9576b, type: 2}
-  - {fileID: 11400000, guid: c5e1549b2e90feb499f21cf547cc7f41, type: 2}
-  - {fileID: 11400000, guid: 46065906d7eaf0449a7e795f93be6e2a, type: 2}
-  - {fileID: 11400000, guid: be26b8c32a78de94bb28ae6524d039e6, type: 2}
-  - {fileID: 11400000, guid: 52ce78c13436ade43818900f3e78fd9c, type: 2}
-  - {fileID: 11400000, guid: 385a9e9a8987c234c8956cbfe1c5fca5, type: 2}
-  - {fileID: 11400000, guid: 52ca15546937b8a43ac95febd4471493, type: 2}
-  - {fileID: 11400000, guid: f42f51021fde2784a9e93d0df100eb6c, type: 2}
-  - {fileID: 11400000, guid: 9497a8380417e134eba2d3c624a816cc, type: 2}
-  - {fileID: 11400000, guid: c028fbcf3f69e69469c786c29f5371f5, type: 2}
-  - {fileID: 11400000, guid: e78ac57bec6784b47a9ae0342bc0f8f2, type: 2}
-  - {fileID: 11400000, guid: d439a84f69a6c4648b9cf3d52f0c3c38, type: 2}
-  - {fileID: 11400000, guid: 88384a8a9a7f8404c905d477cadaaeee, type: 2}
-  - {fileID: 11400000, guid: 83030cb6db2ad7d49935523a7f90117d, type: 2}
-  - {fileID: 11400000, guid: f195f9765f7a35a42a661edba82bd0aa, type: 2}
-  - {fileID: 11400000, guid: 62d6fa7968ced5b4fbb99bdaca78592c, type: 2}
-  - {fileID: 11400000, guid: 79b50d1a6dc9a54459c097f82417c014, type: 2}
-  - {fileID: 11400000, guid: 789e58572d7fa4d4a814b8165001eedd, type: 2}
-  - {fileID: 11400000, guid: e610999c9ba5d424fa165c3692d1f278, type: 2}
-  - {fileID: 11400000, guid: 0c67a75bdedd66d469ec00e6671e46d4, type: 2}
-  - {fileID: 11400000, guid: b9a9182237a0d7343844e3599a44c3ad, type: 2}
-  - {fileID: 11400000, guid: 9db6878a8f9125d4e95263fa32991911, type: 2}
-  - {fileID: 11400000, guid: bc6be4eb163cc5c41bb6bc7ce3629832, type: 2}
-  - {fileID: 11400000, guid: 9deb7a4a83573e0418eb3a599afd3701, type: 2}
-  - {fileID: 11400000, guid: 962b162839380294f8155e2d3108bfbe, type: 2}
-  - {fileID: 11400000, guid: 863d4f6c39bb30a40818d5e3ddd5d7b4, type: 2}
-  - {fileID: 11400000, guid: d859b3601e606ed419e81c1157f511de, type: 2}
-  - {fileID: 11400000, guid: 1c906cbf49f1503408fb5148d9303161, type: 2}
-  - {fileID: 11400000, guid: 1cc7bb7d0820914469f464716e5da090, type: 2}
-  - {fileID: 11400000, guid: a9eaab20645dc584ba5d50d9a6281dad, type: 2}
-  - {fileID: 11400000, guid: f9deeb16fcf0b434cbfce48bf428fb7f, type: 2}
-  - {fileID: 11400000, guid: 1f0617ed99ca55745a1e714c542d4494, type: 2}
-  - {fileID: 11400000, guid: 8b4be0b4696012e47b3549df835f5798, type: 2}
   dataset:
   - name: 06:00
     TM30Image: {fileID: 21300000, guid: 827e69f648e8924428b4c0d3246f21cc, type: 3}
