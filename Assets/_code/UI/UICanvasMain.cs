@@ -36,6 +36,7 @@ namespace Spectrum
 
         [Header("Bottom")]
         [SerializeField] Slider mainSlider;
+        [SerializeField] float animationDelay = 1.0f;
 
         [Header("TM-30")]
         [SerializeField] Image TM30Image;
@@ -45,6 +46,9 @@ namespace Spectrum
         [SerializeField] TextMeshProUGUI cctValueText;
 
         public int currentIndex = 0;
+
+        float currentTime = 0;
+        bool playAnimation = false;
 
         void Awake()
         {
@@ -83,6 +87,22 @@ namespace Spectrum
 
                 ChangeMainSliderValue(false);
             }
+
+            if (!playAnimation)
+                return;
+
+            currentTime -= Time.deltaTime;
+
+            if (currentTime <= 0)
+            {
+                currentTime = animationDelay;
+                currentIndex++;
+
+                if (currentIndex >= dataset.dataAssets.Count)
+                    currentIndex = 0;
+
+                ChangeMainSliderValue(false);
+            }
         }
 
         public void Init()
@@ -97,9 +117,11 @@ namespace Spectrum
         public void ChangeMainSliderValue(bool isCanvasInput)
         {
             if (isCanvasInput)
-                currentIndex = Mathf.FloorToInt(mainSlider.value);            
+                currentIndex = Mathf.FloorToInt(mainSlider.value);
+            else
+                mainSlider.value = currentIndex;
 
-            intensitySlider.value = dataset.dataAssets[currentIndex].data.intensity;
+                intensitySlider.value = dataset.dataAssets[currentIndex].data.intensity;
             intensityValueText.text = intensitySlider.value.ToString();
 
             lumenSlider.value = dataset.dataAssets[currentIndex].data.lumen;
@@ -139,6 +161,11 @@ namespace Spectrum
         public void ExitGame()
         {
             Application.Quit();
+        }
+
+        public void PlayAnimation(bool state)
+        {
+            playAnimation = state;
         }
     }
 }
