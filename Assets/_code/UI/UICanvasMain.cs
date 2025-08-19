@@ -23,6 +23,8 @@ namespace Spectrum
         [SerializeField] TextMeshProUGUI intensityValueText;
         [SerializeField] Slider lumenSlider;
         [SerializeField] TextMeshProUGUI lumenValueText;
+        [SerializeField] Slider photopicSlider;
+        [SerializeField] TextMeshProUGUI photopicValueText;
 
         [Header("Center")]
         [SerializeField] Slider csSlider;
@@ -102,6 +104,9 @@ namespace Spectrum
 
             lumenSlider.value = dataset.dataAssets[currentIndex].data.lumen;
             lumenValueText.text = lumenSlider.value.ToString();
+
+            photopicSlider.value = dataset.dataAssets[currentIndex].data.photopic;
+            photopicValueText.text = photopicSlider.value.ToString();
 
             csSlider.value = dataset.dataAssets[currentIndex].data.cs;
             csValueText.text = csSlider.value.ToString();

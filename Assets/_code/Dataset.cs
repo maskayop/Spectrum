@@ -29,6 +29,7 @@ namespace Spectrum
         public int intensity;
         public int temperature;
         public int lumen;
+        public int photopic;
         public float cs;
         public float mder;
         public float medi;

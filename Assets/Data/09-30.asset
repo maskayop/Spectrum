@@ -24,6 +24,7 @@ MonoBehaviour:
     intensity: 90
     temperature: 4350
     lumen: 382
+    photopic: 878
     cs: 0.52
     mder: 0.786
     medi: 691
