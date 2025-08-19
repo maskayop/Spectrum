@@ -23,11 +23,15 @@ namespace Spectrum
         public float rg;
         public float ra;
         public float cct;
-
+        
         [Space(20)]
         public RawStringData rawStringData;
         public int intensity;
         public int temperature;
+        public int lumen;
+        public float cs;
+        public float mder;
+        public float medi;
         public Color emissionColor;
 
         [Header("Processed data")]

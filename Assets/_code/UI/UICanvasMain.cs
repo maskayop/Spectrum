@@ -14,14 +14,26 @@ namespace Spectrum
         [SerializeField] MeshRenderer meshRendererAdditional;
         [SerializeField] int materialIndex;
 
-        [Header("UI")]
+        [Header("Background")]
         [SerializeField] Image background;
         [SerializeField] float backgroundAlpha;
-        [SerializeField] Slider mainSlider;
+
+        [Header("Top")]
         [SerializeField] Slider intensitySlider;
         [SerializeField] TextMeshProUGUI intensityValueText;
-        [SerializeField] Slider circadianSlider;
-        [SerializeField] TextMeshProUGUI circadianValueText;
+        [SerializeField] Slider lumenSlider;
+        [SerializeField] TextMeshProUGUI lumenValueText;
+
+        [Header("Center")]
+        [SerializeField] Slider csSlider;
+        [SerializeField] TextMeshProUGUI csValueText;
+        [SerializeField] Slider mderSlider;
+        [SerializeField] TextMeshProUGUI mderValueText;
+        [SerializeField] Slider mediSlider;
+        [SerializeField] TextMeshProUGUI mediValueText;
+
+        [Header("Bottom")]
+        [SerializeField] Slider mainSlider;
 
         [Header("TM-30")]
         [SerializeField] Image TM30Image;
@@ -73,8 +85,8 @@ namespace Spectrum
 
         public void Init()
         {
-            mainSlider.minValue = circadianSlider.minValue = intensitySlider.minValue = 0;
-            mainSlider.maxValue = circadianSlider.maxValue = dataset.dataAssets.Count - 1;
+            mainSlider.minValue = 0;
+            mainSlider.maxValue = dataset.dataAssets.Count - 1;
             intensitySlider.maxValue = 100;
 
             ChangeMainSliderValue(false);
@@ -88,8 +100,17 @@ namespace Spectrum
             intensitySlider.value = dataset.dataAssets[currentIndex].data.intensity;
             intensityValueText.text = intensitySlider.value.ToString();
 
-            circadianSlider.value = currentIndex;
-            circadianValueText.text = circadianSlider.value.ToString();
+            lumenSlider.value = dataset.dataAssets[currentIndex].data.lumen;
+            lumenValueText.text = lumenSlider.value.ToString();
+
+            csSlider.value = dataset.dataAssets[currentIndex].data.cs;
+            csValueText.text = csSlider.value.ToString();
+
+            mderSlider.value = dataset.dataAssets[currentIndex].data.mder;
+            mderValueText.text = mderSlider.value.ToString();
+
+            mediSlider.value = dataset.dataAssets[currentIndex].data.medi;
+            mediValueText.text = mediSlider.value.ToString();
 
             TM30Image.sprite = dataset.dataAssets[currentIndex].data.TM30Image;
 
