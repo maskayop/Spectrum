@@ -27,6 +27,8 @@ namespace Spectrum
         public enum ColorsType { horizontal, vertical }
         [Header("Colors")]
         public ColorsType colorsType;
+        public Color cutColor = Color.white;
+        public List<int> cutIndexes = new List<int>();
         public List<Color> colors = new List<Color>();
 
         [Header("Data")]
@@ -134,13 +136,17 @@ namespace Spectrum
                             int d1 = d + UICanvasMain.Instance.currentIndex;
                             int d2 = d + 1 + UICanvasMain.Instance.currentIndex;
 
-                            if (d + 1 + UICanvasMain.Instance.currentIndex < dataset.dataAssets.Count)
+                            if (d2 < dataset.dataAssets.Count)
                                 verticalOffset = Mathf.Lerp(
                                     (float)dataset.dataAssets[d1].data.spectralData[x * 2],
                                     (float)dataset.dataAssets[d2].data.spectralData[x * 2],
                                     (float)z / amountInGroup % 1);
                             else
-                                verticalOffset = (float)dataset.dataAssets[dataset.dataAssets.Count - 1].data.spectralData[x * 2];
+                                verticalOffset = Mathf.Lerp(
+                                    (float)dataset.dataAssets[d1 - 47].data.spectralData[x * 2],
+                                    (float)dataset.dataAssets[d2 - 47].data.spectralData[x * 2],
+                                    (float)z / amountInGroup % 1);
+                            //verticalOffset = (float)dataset.dataAssets[dataset.dataAssets.Count - 1].data.spectralData[x * 2];
                         }
                         else
                             verticalOffset = (float)dataset.dataAssets[datasetIndex].data.spectralData[x * 2];
@@ -203,6 +209,12 @@ namespace Spectrum
                                 tempColors[i] = Color.Lerp(colors[c], colors[c + 1], (float)x / amountInColorGroup % 1);
                             else if (colorsType == ColorsType.vertical)
                                 tempColors[i] = Color.Lerp(colors[c], colors[c + 1], (float)z / amountInColorGroup % 1);
+
+                            for (int cut = 0; cut < cutIndexes.Count; cut++)
+                            {
+                                if (cutIndexes[cut] == x)
+                                    tempColors[i] = cutColor;
+                            }
                         }
                         else
                             tempColors[i] = colors[colors.Count - 1];
