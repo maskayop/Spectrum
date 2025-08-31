@@ -27,7 +27,6 @@ namespace Spectrum
         [Space(20)]
         public RawStringData rawStringData;
         public int intensity;
-        public int temperature;
         public int lumen;
         public int photopic;
         public float cs;

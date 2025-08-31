@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a2d523f566b9a74d850af51ece1a18d, type: 3}
-  m_Name: 00-00
+  m_Name: 00-00 ___ 05-30 ___ 22-30 ___ 23-30
   m_EditorClassIdentifier: Assembly-CSharp::Spectrum.Data_Asset
   data:
     name: 00:00
