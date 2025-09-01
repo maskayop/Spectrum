@@ -71,7 +71,6 @@ namespace Spectrum
                 if (dataset.dataAssets.Count == 0)
                     return;
 
-                //width = dataset.dataAssets[0].data.spectralData.Count / 2;
                 height = width;
             }
 
@@ -143,10 +142,9 @@ namespace Spectrum
                                     (float)z / amountInGroup % 1);
                             else
                                 verticalOffset = Mathf.Lerp(
-                                    (float)dataset.dataAssets[d1 - 47].data.spectralData[x * 2],
-                                    (float)dataset.dataAssets[d2 - 47].data.spectralData[x * 2],
+                                    (float)dataset.dataAssets[d1 - dataset.dataAssets.Count + 1].data.spectralData[x * 2],
+                                    (float)dataset.dataAssets[d2 - dataset.dataAssets.Count + 1].data.spectralData[x * 2],
                                     (float)z / amountInGroup % 1);
-                            //verticalOffset = (float)dataset.dataAssets[dataset.dataAssets.Count - 1].data.spectralData[x * 2];
                         }
                         else
                             verticalOffset = (float)dataset.dataAssets[datasetIndex].data.spectralData[x * 2];
