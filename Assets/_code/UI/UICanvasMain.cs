@@ -155,7 +155,7 @@ namespace Spectrum
             rfValueText.text = dataset.dataAssets[currentIndex].data.rf.ToString();
             rgValueText.text = dataset.dataAssets[currentIndex].data.rg.ToString();
             raValueText.text = dataset.dataAssets[currentIndex].data.ra.ToString();
-            cctValueText.text = dataset.dataAssets[currentIndex].data.cct.ToString();
+            cctValueText.text = Mathf.FloorToInt(dataset.dataAssets[currentIndex].data.cct).ToString();
         }
 
         public void ExitGame()

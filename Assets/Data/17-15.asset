@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spectrum.Data_Asset
   data:
     name: 17:15
-    TM30Image: {fileID: 21300000, guid: c806b353283b5de47994e772a37f8d91, type: 3}
+    TM30Image: {fileID: 21300000, guid: 0dc203e9288c8bd40bc0d0a3e7d32486, type: 3}
     rf: 93
     rg: 103
     ra: 93.075
