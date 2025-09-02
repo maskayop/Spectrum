@@ -14,6 +14,9 @@ namespace Spectrum
         [SerializeField] MeshRenderer meshRendererAdditional;
         [SerializeField] int materialIndex;
 
+        [Header("Exit")]
+        [SerializeField] GameObject exitButton;
+
         [Header("Background")]
         [SerializeField] Image background;
         [SerializeField] float backgroundAlpha;
@@ -45,6 +48,11 @@ namespace Spectrum
         [SerializeField] TextMeshProUGUI raValueText;
         [SerializeField] TextMeshProUGUI cctValueText;
 
+        [Header("Animation Speed")]
+        [SerializeField] Slider animationDelaySlider;
+        [SerializeField] TextMeshProUGUI animationDelayValueText;
+
+        [Header("Info")]
         public int currentIndex = 0;
 
         float currentTime = 0;
@@ -69,6 +77,9 @@ namespace Spectrum
 
         void Update()
         {
+            animationDelay = (float)animationDelaySlider.value / 10;
+            animationDelayValueText.text = animationDelay.ToString();
+
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 currentIndex--;
@@ -102,7 +113,7 @@ namespace Spectrum
                     currentIndex = 0;
 
                 ChangeMainSliderValue(false);
-            }
+            }            
         }
 
         public void Init()
@@ -112,6 +123,10 @@ namespace Spectrum
             intensitySlider.maxValue = 100;
 
             ChangeMainSliderValue(false);
+
+#if PLATFORM_WEBGL
+            exitButton.SetActive(false);
+#endif
         }
 
         public void ChangeMainSliderValue(bool isCanvasInput)
