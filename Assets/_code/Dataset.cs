@@ -8,7 +8,7 @@ namespace Spectrum
     [Serializable]
     public class RawStringData
     {
-        [TextArea(1, 5)]
+        [TextArea(1, 10)]
         public string rawData;
     }
     
