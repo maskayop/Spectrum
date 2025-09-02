@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.071875, b: 0.2, a: 1}
+  m_Color: {r: 0.14901961, g: 0.043137256, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -235,7 +235,7 @@ MonoBehaviour:
   sinAmplitude: 5
   frequency: 0.2
   colorsType: 0
-  cutColor: {r: 0, g: 0.071875, b: 0.2, a: 1}
+  cutColor: {r: 0.15, g: 0.0425, b: 0, a: 1}
   cutIndexes: 2d0000003700000055000000
   colors:
   - {r: 0.36078432, g: 0, b: 0.9294118, a: 1}
@@ -6117,7 +6117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.071875, b: 0.2, a: 1}
+  m_Color: {r: 0.14901961, g: 0.043137256, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7787,7 +7787,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.071875, b: 0.2, a: 1}
+  m_Color: {r: 0.14901961, g: 0.043137256, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
