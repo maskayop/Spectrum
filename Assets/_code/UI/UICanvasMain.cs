@@ -135,15 +135,15 @@ namespace Spectrum
                 currentIndex = Mathf.FloorToInt(mainSlider.value);
             else
                 mainSlider.value = currentIndex;
-
-                intensitySlider.value = dataset.dataAssets[currentIndex].data.intensity;
-            intensityValueText.text = intensitySlider.value.ToString();
+            
+            intensitySlider.value = dataset.dataAssets[currentIndex].data.intensity;
+            intensityValueText.text = Mathf.FloorToInt(intensitySlider.value).ToString();
 
             lumenSlider.value = dataset.dataAssets[currentIndex].data.lumen;
-            lumenValueText.text = lumenSlider.value.ToString();
+            lumenValueText.text = Mathf.FloorToInt(lumenSlider.value).ToString();
 
             photopicSlider.value = dataset.dataAssets[currentIndex].data.photopic;
-            photopicValueText.text = photopicSlider.value.ToString();
+            photopicValueText.text = Mathf.FloorToInt(photopicSlider.value).ToString();
 
             csSlider.value = dataset.dataAssets[currentIndex].data.cs;
             csValueText.text = csSlider.value.ToString();
@@ -152,7 +152,7 @@ namespace Spectrum
             mderValueText.text = mderSlider.value.ToString();
 
             mediSlider.value = dataset.dataAssets[currentIndex].data.medi;
-            mediValueText.text = mediSlider.value.ToString();
+            mediValueText.text = Mathf.FloorToInt(mediSlider.value).ToString();
 
             TM30Image.sprite = dataset.dataAssets[currentIndex].data.TM30Image;
 
@@ -167,8 +167,8 @@ namespace Spectrum
             meshRenderer.materials = materials;
             meshRendererAdditional.materials = materials;
 
-            rfValueText.text = dataset.dataAssets[currentIndex].data.rf.ToString();
-            rgValueText.text = dataset.dataAssets[currentIndex].data.rg.ToString();
+            rfValueText.text = Mathf.FloorToInt(dataset.dataAssets[currentIndex].data.rf).ToString();
+            rgValueText.text = Mathf.FloorToInt(dataset.dataAssets[currentIndex].data.rg).ToString();
             raValueText.text = dataset.dataAssets[currentIndex].data.ra.ToString();
             cctValueText.text = Mathf.FloorToInt(dataset.dataAssets[currentIndex].data.cct).ToString();
         }

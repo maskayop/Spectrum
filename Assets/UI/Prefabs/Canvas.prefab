@@ -4699,8 +4699,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 25, y: -16}
-  m_SizeDelta: {x: 110, y: 50}
+  m_AnchoredPosition: {x: 0, y: -16}
+  m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8072185963710946746
 MonoBehaviour:
@@ -4957,7 +4957,7 @@ MonoBehaviour:
   cctValueText: {fileID: 491167536170667514}
   animationDelaySlider: {fileID: 6351553333019377155}
   animationDelayValueText: {fileID: 6267209197381662241}
-  currentIndex: 0
+  currentIndex: 24
 --- !u!1 &2210898393843384330
 GameObject:
   m_ObjectHideFlags: 0
@@ -6380,7 +6380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "FrameWarm\u2122 (50 lx)"
+  m_text: "FlameWarm\u2122 (50 lx)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 187f3e80b1f9dcf4193e8088346781d3, type: 2}
   m_sharedMaterial: {fileID: 9139385995275513107, guid: 187f3e80b1f9dcf4193e8088346781d3, type: 2}
@@ -17792,7 +17792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "FrameWarm\u2122 (50 lx)"
+  m_text: "FlameWarm\u2122 (50 lx)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 187f3e80b1f9dcf4193e8088346781d3, type: 2}
   m_sharedMaterial: {fileID: 9139385995275513107, guid: 187f3e80b1f9dcf4193e8088346781d3, type: 2}

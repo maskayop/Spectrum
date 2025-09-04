@@ -24,7 +24,7 @@ MonoBehaviour:
     intensity: 50
     lumen: 208
     photopic: 481
-    cs: 0.367
+    cs: 0.402
     mder: 0.651
     medi: 313
     emissionColor: {r: 1, g: 0.75592494, b: 0.55399656, a: 1}
