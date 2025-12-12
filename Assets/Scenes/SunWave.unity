@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32854f3fd065bca43bcd00b5887ebe63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spectralAmplitudeDivider: 1000000000
+  spectralAmplitudeDivider: 1000000
   dataAssets:
   - {fileID: 11400000, guid: 696f01fce67ba0944a5e50b31d9a718e, type: 2}
   - {fileID: 11400000, guid: 696f01fce67ba0944a5e50b31d9a718e, type: 2}
