@@ -161,11 +161,14 @@ namespace Spectrum
                 dataset.dataAssets[currentIndex].data.emissionColor.b,
                 backgroundAlpha);
 
-            Material[] materials = meshRenderer.materials;
-            materials[materialIndex].SetColor("_EmissionColor", dataset.dataAssets[currentIndex].data.emissionColor *
-                dataset.dataAssets[currentIndex].data.intensity / 100);
-            meshRenderer.materials = materials;
-            meshRendererAdditional.materials = materials;
+            if (meshRenderer)
+            {
+                Material[] materials = meshRenderer.materials;
+                materials[materialIndex].SetColor("_EmissionColor", dataset.dataAssets[currentIndex].data.emissionColor *
+                    dataset.dataAssets[currentIndex].data.intensity / 100);
+                meshRenderer.materials = materials;
+                meshRendererAdditional.materials = materials;
+            }
 
             rfValueText.text = Mathf.FloorToInt(dataset.dataAssets[currentIndex].data.rf).ToString();
             rgValueText.text = Mathf.FloorToInt(dataset.dataAssets[currentIndex].data.rg).ToString();
@@ -175,7 +178,13 @@ namespace Spectrum
 
         public void ExitGame()
         {
-            Application.Quit();
+            Debug.Log("Выход из программы" + "\n");
+
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
         }
 
         public void PlayAnimation(bool state)
