@@ -18,7 +18,7 @@ MonoBehaviour:
     rf: 0
     rg: 0
     ra: 0
-    cct: 2700
+    cct: 0
     rawStringData:
       rawData: '0,0000000000
 
